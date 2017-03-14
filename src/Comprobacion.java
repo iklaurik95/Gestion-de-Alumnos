@@ -22,6 +22,7 @@ public class Comprobacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public Comprobacion(JFrame inicial, boolean modal, String usuario) {
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,5 +46,4 @@ public class Comprobacion extends JDialog {
 			}
 		}
 	}
-
 }
