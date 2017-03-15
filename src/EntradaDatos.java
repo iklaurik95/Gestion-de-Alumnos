@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EntradaDatos extends JDialog {
 
@@ -93,6 +95,18 @@ public class EntradaDatos extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnGuardar = new JButton("Guardar");
+				btnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						int numero = Integer.parseInt(textoMatricula.getText());
+						String nombre = textoNombre.getText();
+						String apellido = textoApellido.getText();
+						int edad = Integer.parseInt(textoEdad.getText());
+						
+						Alumno alumno = new Alumno(numero,nombre,apellido,edad);
+						((Acciones) getParent()).anadirAlumno(alumno);
+					}
+				});
 				btnGuardar.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 				btnGuardar.setActionCommand("OK");
 				buttonPane.add(btnGuardar);

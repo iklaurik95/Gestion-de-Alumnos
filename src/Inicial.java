@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -16,8 +18,11 @@ public class Inicial extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textoUsuario;
-	private JTextField textContrasena;
-
+	private JTextField textoContrasena;
+	
+	Usuario usuario = new Usuario("Iker","123456789");
+	String nombreUsuario = usuario.getNombre();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -66,16 +71,20 @@ public class Inicial extends JFrame {
 		contentPane.add(textoUsuario);
 		textoUsuario.setColumns(10);
 		
-		textContrasena = new JTextField();
-		textContrasena.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		textContrasena.setBounds(227, 144, 86, 20);
-		contentPane.add(textContrasena);
-		textContrasena.setColumns(10);
+		textoContrasena = new JTextField();
+		textoContrasena.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		textoContrasena.setBounds(227, 144, 86, 20);
+		contentPane.add(textoContrasena);
+		textoContrasena.setColumns(10);
 		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				entrarComprobacion();
+				if(textoUsuario.getText().equals(usuario.getNombre()) && textoContrasena.getText().equals(usuario.getPassword())){
+					entrarComprobacion();
+				}else{
+					JOptionPane.showMessageDialog(getContentPane(), "ERROR. Usuario y/o contraseña incorrectos.","Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnEntrar.setBounds(227, 209, 89, 23);
@@ -84,8 +93,9 @@ public class Inicial extends JFrame {
 	}
 
 	protected void entrarComprobacion() {
+		
 		// TODO Auto-generated method stub
-		Comprobacion comprobacion = new Comprobacion(this,true,"usuario");
+		Comprobacion comprobacion = new Comprobacion(nombreUsuario);
 		comprobacion.setVisible(true);
 	}
 }

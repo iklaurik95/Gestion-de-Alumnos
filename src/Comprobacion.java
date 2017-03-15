@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Comprobacion extends JDialog {
 
@@ -21,7 +23,7 @@ public class Comprobacion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Comprobacion(JFrame inicial, boolean modal, String usuario) {
+	public Comprobacion(String usuario) {
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -29,9 +31,9 @@ public class Comprobacion extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblOngiEtorri = new JLabel("ONGI ETORRI");
+			JLabel lblOngiEtorri = new JLabel("ONGI ETORRI" + " " + usuario);
 			lblOngiEtorri.setFont(new Font("Times New Roman", Font.BOLD, 16));
-			lblOngiEtorri.setBounds(150, 98, 146, 14);
+			lblOngiEtorri.setBounds(150, 98, 216, 14);
 			contentPanel.add(lblOngiEtorri);
 		}
 		{
@@ -40,10 +42,22 @@ public class Comprobacion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnContinuar = new JButton("Continuar");
+				btnContinuar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						abrirVentanaAcciones();
+					}
+				});
 				btnContinuar.setActionCommand("OK");
 				buttonPane.add(btnContinuar);
 				getRootPane().setDefaultButton(btnContinuar);
 			}
 		}
+	}
+
+	protected void abrirVentanaAcciones() {
+		// TODO Auto-generated method stub
+		Acciones acciones = new Acciones();
+		acciones.setVisible(true);
+		dispose();
 	}
 }

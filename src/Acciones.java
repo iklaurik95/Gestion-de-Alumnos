@@ -7,11 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Acciones extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JComboBox listaAlumno;
 
 	/**
 	 * Launch the application.
@@ -36,30 +41,68 @@ public class Acciones extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(286, 70, 108, 20);
-		contentPanel.add(comboBox);
+		listaAlumno = new JComboBox();
+		listaAlumno.setBounds(286, 70, 108, 20);
+		contentPanel.add(listaAlumno);
 		
 		JLabel lblDatosDelAlumno = new JLabel("DATOS DEL ALUMNO");
 		lblDatosDelAlumno.setFont(new Font("Times New Roman", Font.ITALIC, 16));
 		lblDatosDelAlumno.setBounds(125, 25, 208, 14);
 		contentPanel.add(lblDatosDelAlumno);
 		
-		JButton btnNewButton = new JButton("Introducir");
-		btnNewButton.setBounds(106, 84, 89, 23);
-		contentPanel.add(btnNewButton);
+		JButton btnIntroducir = new JButton("Introducir");
+		btnIntroducir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirVentanaEntradaDatos();
+			}
+		});
+		btnIntroducir.setBounds(106, 84, 89, 23);
+		contentPanel.add(btnIntroducir);
 		
-		JButton btnNewButton_1 = new JButton("Borrar");
-		btnNewButton_1.setBounds(106, 133, 89, 23);
-		contentPanel.add(btnNewButton_1);
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listaAlumno.removeItemAt(listaAlumno.getSelectedIndex());
+			}
+		});
+		btnBorrar.setBounds(106, 133, 89, 23);
+		contentPanel.add(btnBorrar);
 		
-		JButton btnNewButton_2 = new JButton("Edad Media");
-		btnNewButton_2.setBounds(106, 181, 89, 23);
-		contentPanel.add(btnNewButton_2);
+		JButton btnEdadMedia = new JButton("Edad Media");
+		btnEdadMedia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String alumno;
+				int edad =0;
+				int total =0;
+				int tamano = listaAlumno.getItemCount();
+				
+				for(int i=0;i<tamano;i++){
+					alumno = String.valueOf(listaAlumno.getItemAt(i));
+					String[] partes = alumno.split(":");
+					total=total+edad;				
+				}
+				
+				double media = (double)total/(double)tamano;
+				//JOptionPane.showMessageDialog(this,"La media es: " + media,JOptionPane.OK_OPTION);
+			}
+		});
+		btnEdadMedia.setBounds(106, 181, 113, 23);
+		contentPanel.add(btnEdadMedia);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		}
 	}
+	
+	protected void abrirVentanaEntradaDatos() {
+		// TODO Auto-generated method stub
+		EntradaDatos entradaDatos = new EntradaDatos();
+		entradaDatos.setVisible(true);
+	}
+
+	public void anadirAlumno (Alumno alumno){
+		this.listaAlumno.addItem(alumno.getNombre() + " " + alumno.getApellido() + " - " + alumno.getEdad());
+	}
+
 }
